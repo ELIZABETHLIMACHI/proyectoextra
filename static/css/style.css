@@ -1,0 +1,28 @@
+/* static/css/style.css */
+body {
+    background-color: #f0f2f5;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.jumbotron {
+    background-image: linear-gradient(to right, #6dd5ed, #2193b0);
+    color: white;
+}
+
+.card {
+    border: none;
+    border-radius: 0.75rem;
+}
+
+.card-img-top {
+    border-top-left-radius: 0.75rem;
+    border-top-right-radius: 0.75rem;
+}
+
+footer {
+    width: 100%;
+    position: relative; /* Cambiado a relative para que se posicione después del main */
+    bottom: 0;
+}
+
+/* Puedes agregar más estilos personalizados aquí */

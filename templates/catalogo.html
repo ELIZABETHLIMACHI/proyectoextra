@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Catálogo de Sabores{% endblock %}
+
+{% block content %}
+    <h1 class="mb-4">Nuestros Deliciosos Sabores <i class="fas fa-ice-cream"></i></h1>
+
+    {% if sabores %}
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for sabor in sabores %}
+        <div class="col">
+            <div class="card h-100 shadow-sm {% if not sabor.disponible %}border-danger{% endif %}">
+                <img src="{{ url_for('static', filename=sabor.imagen_url) }}" class="card-img-top" alt="{{ sabor.nombre }}" style="height: 200px; object-fit: cover;">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">{{ sabor.nombre }}</h5>
+                    <p class="card-text">{{ sabor.descripcion | default('Sin descripción.', true) }}</p>
+                    <div class="mt-auto">
+                        <p class="card-text">
+                            <strong>Precio:</strong> ${{ '%.2f' % sabor.precio }}
+                            {% if not sabor.disponible %}
+                                <span class="badge bg-danger ms-2"><i class="fas fa-ban me-1"></i>Agotado</span>
+                            {% else %}
+                                <span class="badge bg-success ms-2"><i class="fas fa-check-circle me-1"></i>Disponible</span>
+                            {% endif %}
+                        </p>
+                        <a href="{{ url_for('sabor_detalle', sabor_id=sabor.id) }}" class="btn btn-primary btn-sm">
+                            <i class="fas fa-info-circle me-1"></i>Ver Detalles
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="alert alert-warning" role="alert">
+        <i class="fas fa-exclamation-triangle me-2"></i>Aún no hay sabores disponibles en nuestro catálogo.
+    </div>
+    {% endif %}
+{% endblock %}

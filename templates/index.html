@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+    <div class="jumbotron text-center bg-info text-white p-5 rounded-3 shadow">
+        <h1 class="display-4"><i class="fas fa-ice-cream fa-lg me-3"></i>El Rincón del Sabor</h1>
+        <p class="lead">Donde cada bola es una experiencia.</p>
+        <hr class="my-4 border-white-50">
+        <p>Descubre nuestros deliciosos sabores artesanales.</p>
+        <a class="btn btn-light btn-lg" href="{{ url_for('catalogo') }}" role="button">
+            <i class="fas fa-book-open me-2"></i>Ver Catálogo
+        </a>
+    </div>
+
+    <div class="row mt-5 text-center">
+        <div class="col-md-4">
+            <div class="p-3 border rounded-3 bg-light shadow-sm">
+                <i class="fas fa-palette fa-3x text-primary mb-3"></i>
+                <h3>Variedad de Sabores</h3>
+                <p>Desde los clásicos hasta las innovaciones más audaces.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="p-3 border rounded-3 bg-light shadow-sm">
+                <i class="fas fa-leaf fa-3x text-success mb-3"></i>
+                <h3>Ingredientes Frescos</h3>
+                <p>Hechos con ingredientes de la más alta calidad.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="p-3 border rounded-3 bg-light shadow-sm">
+                <i class="fas fa-truck fa-3x text-info mb-3"></i>
+                <h3>Entrega Rápida</h3>
+                <p>Disfruta tu helado favorito en la comodidad de tu hogar.</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ sabor.nombre }} - Detalle{% endblock %}
+
+{% block content %}
+    <div class="card mb-4 shadow-sm">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="{{ url_for('static', filename=sabor.imagen_url) }}" class="img-fluid rounded-start" alt="{{ sabor.nombre }}" style="height: 100%; object-fit: cover;">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h1 class="card-title">{{ sabor.nombre }} <i class="fas fa-ice-cream text-info"></i></h1>
+                    <p class="card-text fs-5">{{ sabor.descripcion | default('No hay descripción disponible para este sabor.', true) }}</p>
+                    <p class="card-text">
+                        <strong>Precio:</strong> <span class="text-primary fs-4">${{ '%.2f' % sabor.precio }}</span>
+                    </p>
+                    <p class="card-text">
+                        <strong>Estado:</strong>
+                        {% if sabor.disponible %}
+                            <span class="badge bg-success fs-6"><i class="fas fa-check-circle me-1"></i>Disponible</span>
+                        {% else %}
+                            <span class="badge bg-danger fs-6"><i class="fas fa-ban me-1"></i>Agotado</span>
+                        {% endif %}
+                    </p>
+                    <hr>
+                    <a href="{{ url_for('catalogo') }}" class="btn btn-secondary me-2">
+                        <i class="fas fa-arrow-left me-1"></i>Volver al Catálogo
+                    </a>
+                    </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

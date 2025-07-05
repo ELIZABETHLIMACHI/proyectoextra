@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}Administración de Sabores{% endblock %}
+
+{% block content %}
+    <h1 class="mb-4">Administración de Sabores <i class="fas fa-cogs"></i></h1>
+    <p>Gestiona los sabores de tu heladería.</p>
+
+    <a href="{{ url_for('admin_agregar_sabor') }}" class="btn btn-primary mb-3">
+        <i class="fas fa-plus-circle me-2"></i>Agregar Nuevo Sabor
+    </a>
+
+    {% if sabores %}
+    <div class="table-responsive">
+        <table class="table table-striped table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Imagen</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Precio</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for sabor in sabores %}
+                <tr>
+                    <td>{{ sabor.id }}</td>
+                    <td>
+                        <img src="{{ url_for('static', filename=sabor.imagen_url) }}" alt="{{ sabor.nombre }}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;">
+                    </td>
+                    <td>{{ sabor.nombre }}</td>
+                    <td>{{ sabor.descripcion | default('N/A', true) | truncate(50, True, '...') }}</td>
+                    <td>${{ '%.2f' % sabor.precio }}</td>
+                    <td>
+                        {% if sabor.disponible %}
+                            <span class="badge bg-success"><i class="fas fa-check"></i> Disponible</span>
+                        {% else %}
+                            <span class="badge bg-danger"><i class="fas fa-times"></i> Agotado</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{ url_for('admin_editar_sabor', sabor_id=sabor.id) }}" class="btn btn-warning btn-sm me-2" title="Editar">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <form action="{{ url_for('admin_eliminar_sabor', sabor_id=sabor.id) }}" method="POST" class="d-inline" onsubmit="return confirm('¿Estás seguro de eliminar el sabor {{ sabor.nombre }}?');">
+                            <button type="submit" class="btn btn-danger btn-sm" title="Eliminar">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="alert alert-info" role="alert">
+        <i class="fas fa-info-circle me-2"></i>No hay sabores registrados en la base de datos. ¡Agrega uno!
+    </div>
+    {% endif %}
+{% endblock %}
